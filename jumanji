@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090b2b" />
+  <title>JUMANJI — Jelajah Universitas MAN 1 Jember</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --navy: #080b2b;
+      --deep: #111344;
+      --purple: #5b3bb7;
+      --violet: #9c75ff;
+      --cyan: #77e8ff;
+      --gold: #ffd78b;
+      --white: #f6f5ff;
+      --muted: #c7c7e7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(91,59,183,.35), transparent 34%),
+        radial-gradient(ellipse at 85% 40%, rgba(45,126,190,.22), transparent 32%),
+        linear-gradient(145deg, #070921 0%, #11113e 48%, #090b2b 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      opacity: .65;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 80px, #b9dfff, transparent),
+        radial-gradient(1.5px 1.5px at 160px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 220px 130px, #d9c8ff, transparent);
+      background-size: 260px 180px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, 90%); margin: auto; }
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(7, 9, 34, .78); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(158, 139, 255, .22);
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 72px; gap: 20px; }
+    .brand { font: 800 1.25rem 'Orbitron', sans-serif; letter-spacing: 2px; color: var(--gold); }
+    .nav-links { display: flex; gap: 26px; color: var(--muted); font-size: .88rem; }
+    .nav-links a:hover { color: var(--cyan); }
+    .menu-toggle { display: none; background: none; border: 1px solid #7770bd; color: white; border-radius: 8px; padding: 7px 11px; }
+
+    .hero { min-height: 680px; display: grid; align-items: center; position: relative; padding: 70px 0 90px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 25px; }
+    .eyebrow { color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; font-size: .75rem; font-weight: 600; }
+    h1 { font: 800 clamp(3.2rem, 9vw, 7.2rem)/.98 'Orbitron', sans-serif; letter-spacing: 2px; margin: 18px 0; }
+    h1 span { display: block; color: var(--gold); text-shadow: 0 0 28px rgba(255,215,139,.25); }
+    .hero h2 { font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 500; color: #e7e1ff; max-width: 590px; }
+    .hero p { color: var(--muted); line-height: 1.8; max-width: 570px; margin: 18px 0 26px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 22px; border-radius: 999px; font-weight: 700; font-size: .9rem; transition: .25s; }
+    .btn-primary { color: #11102d; background: linear-gradient(100deg, var(--gold), #ffefbd); box-shadow: 0 8px 30px rgba(255,215,139,.2); }
+    .btn-outline { border: 1px solid rgba(119,232,255,.65); color: var(--cyan); }
+    .btn:hover { transform: translateY(-3px); }
+    .mascot-wrap { position: relative; display: flex; justify-content: center; align-items: center; min-height: 480px; }
+    .planet { position: absolute; width: min(420px, 90vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #7763d7, #292568 52%, #11143e 72%); box-shadow: 0 0 70px rgba(133,105,255,.32), inset -25px -25px 55px rgba(0,0,0,.35); }
+    .planet::after { content: ""; position: absolute; inset: 35% -15%; border: 3px solid rgba(119,232,255,.55); border-left-color: transparent; border-right-color: transparent; border-radius: 50%; transform: rotate(-17deg); }
+    .mascot { position: relative; z-index: 2; width: min(330px, 78%); max-height: 500px; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,.35)); }
+    .floating-star { position: absolute; color: var(--gold); font-size: 1.5rem; animation: twinkle 2.5s ease-in-out infinite; }
+    .star-one { top: 12%; left: 12%; } .star-two { top: 24%; right: 8%; animation-delay: .7s; } .star-three { bottom: 12%; left: 18%; animation-delay: 1.2s; }
+    @keyframes twinkle { 50% { opacity: .3; transform: scale(.7) rotate(25deg); } }
+
+    .event-strip { margin-top: -28px; position: relative; z-index: 3; }
+    .event-info { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(170,155,255,.28); background: rgba(20,22,68,.78); backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; }
+    .info-item { padding: 24px; text-align: center; }
+    .info-item + .info-item { border-left: 1px solid rgba(170,155,255,.2); }
+    .info-item small { display: block; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; font-size: .68rem; margin-bottom: 8px; }
+    .info-item strong { font-size: 1rem; }
+
+    section.content-section { padding: 100px 0 20px; }
+    .section-heading { text-align: center; margin-bottom: 42px; }
+    .section-heading .eyebrow { margin-bottom: 10px; }
+    h2.section-title { font: 700 clamp(1.7rem, 4vw, 2.7rem) 'Orbitron', sans-serif; }
+    .section-heading p { color: var(--muted); margin: 12px auto 0; max-width: 650px; line-height: 1.8; }
+    .about-card { max-width: 850px; margin: auto; padding: 34px; border-radius: 22px; background: linear-gradient(135deg, rgba(79,61,155,.28), rgba(19,28,77,.65)); border: 1px solid rgba(160,145,255,.28); text-align: center; line-height: 1.9; color: #dedcf5; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { padding: 27px; border-radius: 18px; background: rgba(22,25,72,.72); border: 1px solid rgba(148,132,255,.25); }
+    .feature .emoji { font-size: 2rem; margin-bottom: 13px; }
+    .feature h3 { color: var(--gold); margin-bottom: 8px; font-size: 1.05rem; }
+    .feature p { color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; max-width: 700px; margin: 0 auto; }
+    .count-box { padding: 22px 10px; text-align: center; border-radius: 16px; background: rgba(22,25,72,.8); border: 1px solid rgba(119,232,255,.28); }
+    .count-box strong { display: block; font: 700 clamp(1.8rem, 5vw, 3rem) 'Orbitron', sans-serif; color: var(--cyan); }
+    .count-box span { color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-size: .68rem; }
+    .location-card { max-width: 850px; margin: auto; padding: 30px; border-radius: 20px; text-align: center; background: rgba(22,25,72,.72); border: 1px solid rgba(148,132,255,.25); }
+    .location-card p { color: var(--muted); line-height: 1.8; margin: 10px 0 20px; }
+    footer { margin-top: 100px; padding: 30px 0; text-align: center; color: #aaa9d0; border-top: 1px solid rgba(160,145,255,.2); font-size: .82rem; }
+    footer strong { color: var(--gold); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+
+    @media (max-width: 760px) {
+      .nav-inner { min-height: 64px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; padding: 20px 5%; flex-direction: column; gap: 16px; background: rgba(7,9,34,.97); }
+      .nav-links.open { display: flex; }
+      .hero { min-height: auto; padding: 65px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .mascot-wrap { min-height: 360px; }
+      .mascot { width: min(260px, 70%); max-height: 390px; }
+      .planet { width: min(310px, 85vw); }
+      .event-info { grid-template-columns: 1fr; }
+      .info-item + .info-item { border-left: 0; border-top: 1px solid rgba(170,155,255,.2); }
+      section.content-section { padding-top: 75px; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      .countdown { gap: 7px; }
+      .count-box { padding: 17px 5px; }
+      .count-box span { font-size: .58rem; }
+      .about-card, .location-card { padding: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">✦ JUMANJI</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#tentang">Tentang</a>
+        <a href="#keseruan">Keseruan</a>
+        <a href="#hitung-mundur">Hitung Mundur</a>
+        <a href="#lokasi">Lokasi</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">A journey beyond the stars • MAN 1 Jember</div>
+        <h1>JU<span>MANJI</span></h1>
+        <h2>Jelajah Universitas MAN 1 Jember</h2>
+        <p>Satu hari, banyak pilihan masa depan. Mari jelajahi dunia perkuliahan, temukan kampus impian, dan mulai petualanganmu menuju masa depan!</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#tentang">Jelajahi Acara ✦</a>
+          <a class="btn btn-outline" href="#lokasi">Lihat Lokasi</a>
+        </div>
+      </div>
+      <div class="mascot-wrap" aria-label="Maskot rusa JUMANJI">
+        <div class="planet"></div>
+        <span class="floating-star star-one">✦</span>
+        <span class="floating-star star-two">✧</span>
+        <span class="floating-star star-three">✦</span>
+        <img class="mascot" src="maskot-rusa.png" alt="Maskot rusa JUMANJI mengenakan pakaian astronaut" />
+      </div>
+    </div>
+  </header>
+
+  <div class="container event-strip">
+    <div class="event-info">
+      <div class="info-item"><small>Tanggal</small><strong>16 Januari 2027</strong></div>
+      <div class="info-item"><small>Tempat</small><strong>MAN 1 Jember</strong></div>
+      <div class="info-item"><small>Acara</small><strong>Campus Expo</strong></div>
+    </div>
+  </div>
+
+  <main>
+    <section class="content-section" id="tentang">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Welcome, explorers</div>
+          <h2 class="section-title">Apa itu JUMANJI?</h2>
+          <p>Gerbang awal untuk mengenal lebih dekat dunia universitas dan kehidupan kampus.</p>
+        </div>
+        <div class="about-card">
+          <p><strong>JUMANJI (Jelajah Universitas MAN 1 Jember)</strong> merupakan kegiatan expo kampus yang mempertemukan siswa dengan informasi seputar perguruan tinggi. Temukan wawasan tentang pilihan program studi, lingkungan perkuliahan, jalur masuk, serta pengalaman mahasiswa secara langsung.</p>
+          <p>Siapkan rasa ingin tahumu, karena petualangan menentukan masa depan dimulai dari sini!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="keseruan">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Explore the universe</div>
+          <h2 class="section-title">Jelajahi Kemungkinan</h2>
+          <p>Buka wawasanmu dan temukan inspirasi dari berbagai pilihan pendidikan tinggi.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="emoji">🪐</div>
+            <h3>Kenali Kampus</h3>
+            <p>Dapatkan informasi dan gambaran tentang berbagai perguruan tinggi.</p>
+          </article>
+          <article class="feature">
+            <div class="emoji">🚀</div>
+            <h3>Temukan Jurusan</h3>
+            <p>Jelajahi bidang studi dan peluang yang sesuai dengan minatmu.</p>
+          </article>
+          <article class="feature">
+            <div class="emoji">🌟</div>
+            <h3>Rancang Masa Depan</h3>
+            <p>Bangun motivasi dan persiapkan langkah menuju kampus impian.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="hitung-mundur">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">The countdown begins</div>
+          <h2 class="section-title">Menuju JUMANJI</h2>
+          <p>Tandai kalender dan bersiaplah untuk memulai petualanganmu.</p>
+        </div>
+        <div class="countdown" aria-label="Hitung mundur menuju acara">
+          <div class="count-box"><strong id="days">--</strong><span>Hari</span></div>
+          <div class="count-box"><strong id="hours">--</strong><span>Jam</span></div>
+          <div class="count-box"><strong id="minutes">--</strong><span>Menit</span></div>
+          <div class="count-box"><strong id="seconds">--</strong><span>Detik</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="lokasi">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Your destination</div>
+          <h2 class="section-title">Temui Kami di Sini</h2>
+        </div>
+        <div class="location-card">
+          <div class="emoji">📍</div>
+          <h3>MAN 1 Jember</h3>
+          <p>16 Januari 2027<br>Datang dan jadi bagian dari perjalanan JUMANJI!</p>
+          <!-- Tambahkan tautan Google Maps resmi sekolah di sini jika sudah tersedia. -->
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=MAN+1+Jember" target="_blank" rel="noopener">Buka Peta</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>JUMANJI 2027</strong>
+      <p>Jelajah Universitas MAN 1 Jember · Explore your future among the stars.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Tanggal acara: 16 Januari 2027. Jam default 08.00 WIB; ubah jika jadwal resmi berbeda.
+    const eventDate = new Date('2027-01-16T08:00:00+07:00').getTime();
+
+    function updateCountdown() {
+      const remaining = eventDate - Date.now();
+      const ids = ['days', 'hours', 'minutes', 'seconds'];
+      if (remaining <= 0) {
+        ids.forEach(id => document.getElementById(id).textContent = '0');
+        return;
+      }
+      const values = [
+        Math.floor(remaining / 86400000),
+        Math.floor((remaining % 86400000) / 3600000),
+        Math.floor((remaining % 3600000) / 60000),
+        Math.floor((remaining % 60000) / 1000)
+      ];
+      ids.forEach((id, index) => {
+        document.getElementById(id).textContent = String(values[index]).padStart(2, '0');
+      });
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
+  </script>
+</body>
+</html>
